@@ -248,7 +248,19 @@ class CSVDataTable(BaseDataTable):
         """
 
         # HINT: Append a new_record... what should you check first?
-
+        # search the original data by primary key, if the pk of new value existed, return error
+        if self.find_by_primary_key(new_record['playerID']):
+            self._logger = logging.getLogger()
+            self._logger.debug("Error: duplicate playerID, return")
+            return
+        for r in reversed(self._rows):
+            if CSVDataTable.matches_template(r, new_record):
+                self._logger = logging.getLogger()
+                self._logger.debug("Error: duplicate record, return")
+                return
+        self._rows.append(new_record)
+        self.save()
+        return
 
     def get_rows(self):
         return self._rows
