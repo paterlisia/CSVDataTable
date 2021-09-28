@@ -25,7 +25,7 @@ def tests_people():
 
         print()
         print("find_by_primary_key(): Known Record")
-        print(people.find_by_primary_key(["aardsda01"]))
+        print(people.find_by_primary_key(["abadan01"]))
 
         print()
         print("find_by_primary_key(): Unknown Record")
@@ -49,6 +49,21 @@ def tests_people():
         print("delete_by_template(): Known Template")
         template = {"nameFirst": "David", "nameLast": "Aardsma", "nameGiven": "David Allan"}
         print(people.delete_by_template(template))
+
+        # update by key test
+        template = {"nameFirst": "Andy", "nameLast": "Abad", "nameGiven": "Fausto Andres"}
+        template_for_update = {"nameFirst": "Andyy", "nameLast": "Abad", "nameGiven": "Fausto Andres"}
+        print()
+        print("update_by_key(): Known Record")
+        print(people.update_by_key(["abadan01"], template_for_update))
+
+        print()
+        print("update_by_key(): Unknown Record")
+        print(people.update_by_key((["cah2251"]), template_for_update))
+
+        print()
+        print("update_by_template(): Known Template")
+        print(people.update_by_template(template_for_update, template))
 
         # Please complete code IN THE SAME FORMAT to test when the rest of methods pass or fail
         # HINT HINT: Don't forget about testing the primary key integrity constraints!!
