@@ -36,6 +36,20 @@ def tests_people():
         template = {"nameFirst": "David", "nameLast": "Aardsma", "nameGiven": "David Allan"}
         print(people.find_by_template(template))
 
+        # delete by key test
+        print()
+        print("delete_by_key(): Known Record")
+        print(people.delete_by_key(["aardsda01"]))
+
+        print()
+        print("delete_by_key(): Unknown Record")
+        print(people.delete_by_key((["cah2251"])))
+
+        print()
+        print("delete_by_template(): Known Template")
+        template = {"nameFirst": "David", "nameLast": "Aardsma", "nameGiven": "David Allan"}
+        print(people.delete_by_template(template))
+
         # Please complete code IN THE SAME FORMAT to test when the rest of methods pass or fail
         # HINT HINT: Don't forget about testing the primary key integrity constraints!!
         # For these tests, think to yourself: When should this fail? When should this pass?

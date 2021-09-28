@@ -137,9 +137,14 @@ class CSVDataTable(BaseDataTable):
         :return: None, or a dictionary containing the requested fields for the record identified
             by the key.
         """
-
+        # transfer to template format(dictionary)
         dictionary = dict(zip(self._key_columns, key_fields))
-        return dictionary
+        # search by template using primary key
+        # the primary key is unique so that we do not have to use a list to save our results
+        for r in reversed(self._rows):
+            if CSVDataTable.matches_template(r, dictionary):
+                return r
+        return None
         # What method can you use?
 
     def find_by_template(self, template, field_list=None, limit=None, offset=None, order_by=None):
