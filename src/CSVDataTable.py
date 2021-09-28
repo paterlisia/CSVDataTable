@@ -141,10 +141,8 @@ class CSVDataTable(BaseDataTable):
         dictionary = dict(zip(self._key_columns, key_fields))
         # search by template using primary key
         # the primary key is unique so that we do not have to use a list to save our results
-        for r in reversed(self._rows):
-            if CSVDataTable.matches_template(r, dictionary):
-                return r
-        return None
+        results = self.find_by_template(dictionary)
+        return results[0] if len(results) > 0 else None
         # What method can you use?
 
     def find_by_template(self, template, field_list=None, limit=None, offset=None, order_by=None):
@@ -176,8 +174,10 @@ class CSVDataTable(BaseDataTable):
         """
 
         # HINT: Create a dictionary of values/a template for key fields, then call a method you wrote
-
-        return
+        # transfer to template format(dictionary)
+        dictionary = dict(zip(self._key_columns, key_fields))
+        # search by template using primary key and call delete by template
+        return self.delete_by_template(dictionary)
 
     def delete_by_template(self, template):
         """
@@ -188,7 +188,13 @@ class CSVDataTable(BaseDataTable):
         counter = 0
 
         # Iterate through rows, if matches, remove the row
-
+        # search by template using primary key
+        # the primary key is unique so that we do not have to use a list to save our results
+        for r in reversed(self._rows):
+            if CSVDataTable.matches_template(r, template):
+                counter += 1  # count match rows
+                self._rows.remove(r)  # remove the matched row
+        self.save()  # save updated CSVDataTable to csv file
         return counter
 
     def update_by_key(self, key_fields, new_values):
