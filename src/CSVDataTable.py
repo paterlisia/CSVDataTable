@@ -249,5 +249,6 @@ class CSVDataTable(BaseDataTable):
 
         # HINT: Append a new_record... what should you check first?
 
+
     def get_rows(self):
         return self._rows
