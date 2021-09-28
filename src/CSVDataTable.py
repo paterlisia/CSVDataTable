@@ -206,8 +206,10 @@ class CSVDataTable(BaseDataTable):
         """
 
         # HINT: Create a dictionary of values/a template for key fields, then call a method you wrote
-
-        return
+        # transfer to template format(dictionary)
+        dictionary = dict(zip(self._key_columns, key_fields))
+        # search by template using primary key and call delete by template
+        return self.update_by_template(dictionary, new_values)
 
     def update_by_template(self, template, new_values):
         """
@@ -219,6 +221,22 @@ class CSVDataTable(BaseDataTable):
         counter = 0
 
         # Iterate through rows, if matches, update the row... what should you check first?
+        # search the original data by primary key, if the pk of new value existed, return 0
+        for r in reversed(self._rows):
+            if CSVDataTable.matches_template(r, template):
+                counter += 1  # count match rows
+                if 'playerID' in template.keys():
+                    # jump if the updated pk will cause duplicate pk
+                    serach_result = self.find_by_primary_key(template['playerID'])
+                    if serach_result is not None:
+                        if r['playerID'] == template['playerID'] and len(serach_result) > 1:
+                            continue
+                        elif r['playerID'] == template['playerID'] and len(serach_result) > 0:
+                            continue
+                for key in new_values:
+                    r[key] = new_values[key]
+                print(r)
+        self.save()  # save updated CSVDataTable to csv file
 
         return counter
 
@@ -230,7 +248,6 @@ class CSVDataTable(BaseDataTable):
         """
 
         # HINT: Append a new_record... what should you check first?
-
 
     def get_rows(self):
         return self._rows
