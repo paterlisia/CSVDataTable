@@ -139,10 +139,8 @@ class CSVDataTable(BaseDataTable):
         """
 
         dictionary = dict(zip(self._key_columns, key_fields))
-
+        return dictionary
         # What method can you use?
-
-        return
 
     def find_by_template(self, template, field_list=None, limit=None, offset=None, order_by=None):
         """
