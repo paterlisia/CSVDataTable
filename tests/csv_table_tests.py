@@ -17,6 +17,7 @@ data_dir = os.path.abspath("../Data/Baseball")
 
 
 def tests_people():
+    print("This is the test cases for people table")
     connect_info = {
         "directory": data_dir,
         "file_name": "People.csv"
@@ -148,6 +149,7 @@ def tests_people():
 def tests_batting():
     # Do the same tests for the batting table, so you can ensure your methods work for a table with a composite
     # primary key
+    print("This is the test cases for batting table")
     connect_info = {
         "directory": data_dir,
         "file_name": "Batting.csv"
@@ -173,7 +175,7 @@ def tests_batting():
         # -------------delete existed record by primary key-----------
         print()
         print("delete_by_key(): delete existed record by primary key")
-        print(batting.delete_by_key(["aardsda01", "1871", "1"]))
+        print(batting.delete_by_key(["abercda01", "1871", "1"]))
         template = OrderedDict([('playerID', 'abercda01'), ('yearID', '1871'), ('stint', '1'), ('teamID', 'TRO'), ('lgID', 'NA'), ('G', '1'), ('AB', '4'), ('R', '0'), ('H', '0'), ('2B', '0'), ('3B', '0'), ('HR', '0'), ('RBI', '0'), ('SB', '0'), ('CS', '0'), ('BB', '0'), ('SO', '0'), ('IBB', ''), ('HBP', ''), ('SH', ''), ('SF', ''), ('GIDP', '0')])
 
         batting.insert(template)  # insert deleted one
@@ -256,5 +258,5 @@ def tests_batting():
         print("An error occurred:", e)
 
 
-# tests_people()
+tests_people()
 tests_batting()
